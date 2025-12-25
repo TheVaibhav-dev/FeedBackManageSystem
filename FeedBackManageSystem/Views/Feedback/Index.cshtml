@@ -1,0 +1,53 @@
+﻿@model IEnumerable<FeedBackManageSystem.Models.FeedbackViewModel>
+
+@{
+    ViewBag.Title = "Feedback";
+}
+
+<style>
+    body{
+        background: #C5B4E3;
+    }
+</style>
+<h2>Feedback Reviews</h2>
+
+<table id="feedbackTable" class="display table table-success table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Mobile</th>
+            <th>Gender</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.MobileNumber</td>
+            <td>@item.Gender</td>
+            <td><img src="@item.ImagePath" width="50" height="50" /></td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id"
+                   class="btn btn-warning btn-sm">Edit</a>
+
+                <a asp-action="Delete" asp-route-id="@item.Id"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure?');">
+                   Delete
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts {
+<script>
+    $(document).ready(function () {
+        $('#feedbackTable').DataTable();
+    });
+</script>
+}
