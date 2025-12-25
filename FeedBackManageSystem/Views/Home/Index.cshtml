@@ -1,8 +1,265 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    :root {
+        --bg-dark: #0d0d15;
+        --glass: rgba(255,255,255,.08);
+        --text-light: #e6e6f2;
+        --neon: #7c3aed;
+    }
+
+    body {
+        background: #C5B4E3;
+        color: var(--text-light);
+        transition: .4s;
+    }
+
+        /* ---------- LIGHT MODE ---------- */
+        body.light {
+            background: #e9ecff;
+            color: #000;
+        }
+
+            body.light .glass-card {
+                background: rgba(255,255,255,.8);
+                border: 1px solid rgba(0,0,0,.2);
+                color: #000;
+            }
+
+            body.light .sidebar {
+                background: #ffffff;
+                border-right: 1px solid #ccc;
+            }
+
+    /* ---------- SIDEBAR LINKS ---------- */
+    .side-link {
+        display: block;
+        padding: 10px 12px;
+        border-radius: 12px;
+        margin-bottom: 6px;
+        color: #cfcfea;
+        text-decoration: none;
+        transition: .25s;
+    }
+
+        .side-link:hover,
+        .side-link.active {
+            background: rgba(255,255,255,.12);
+            color: #fff;
+        }
+
+    /* Light mode sidebar text */
+    body.light .side-link {
+        color: #000 !important;
+        background: rgba(0,0,0,.05);
+        border: 1px solid rgba(0,0,0,.1);
+    }
+
+        body.light .side-link:hover,
+        body.light .side-link.active {
+            background: rgba(0,0,0,.15);
+            color: #000 !important;
+        }
+
+    .readme {
+        color: #000 !important;
+    }
+
+    .glass-card {
+        background: rgba(255,255,255,.06);
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,.18);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 25px 45px rgba(0,0,0,.45);
+        transition: .3s;
+        margin-bottom: 1rem;
+    }
+
+        .glass-card:hover {
+            transform: translateY(-3px);
+        }
+
+    /* ---------- NEON PROFILE CARD ---------- */
+    .neon {
+        box-shadow: 0 0 18px var(--neon);
+        border-color: var(--neon) !important;
+    }
+
+    .profile-img {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        border: 2px solid rgba(255,255,255,.5);
+    }
+
+    /* ---------- BUTTONS ---------- */
+    .theme-toggle {
+        background: rgba(255,255,255,.12);
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,.25);
+        color: #fff;
+    }
+    
+    body.light .theme-toggle,
+    body.light .btn {
+        color: #000 !important;
+        border-color: rgba(0,0,0,.35);
+        background: rgba(255,255,255,.85);
+    }
+
+    /* ---------- BLOG CARDS ---------- */
+    .blog-card img {
+        border-radius: 12px;
+        max-height: 200px;
+        object-fit: cover;
+    }
+
+    .blog-card .card-body {
+        padding: 1rem;
+    }
+
+    /* ---------- SIDEBAR ---------- */
+    .sidebar {
+        min-height: 100vh;
+        padding: 18px;
+        background: rgba(0,0,0,.35);
+        border-right: 1px solid rgba(255,255,255,.15);
+        backdrop-filter: blur(10px);
+    }
+</style>
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- ================= SIDEBAR ================= -->
+        <div class="col-md-3 col-lg-2 sidebar">
+
+            <h5 class="fw-bold mb-3">Dashboard Menu</h5>
+
+            <a class="side-link" href="@Url.Action("Create", "Feedback")">
+                📝 Give Feedback
+            </a>
+
+            <a class="side-link" href="@Url.Action("Index", "Feedback")">
+                💬 Reviews
+            </a>
+
+            <hr>
+
+            <button id="toggleTheme" class="btn theme-toggle w-100 mb-3">
+                Day Night Mode
+            </button>
+
+            <button class="btn btn-outline-light w-100"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasDemo">
+
+                📖 Demo Content
+            </button>
+
+        </div>
+
+
+        <!-- ================= MAIN CONTENT ================= -->
+        <div class="col-md-9 col-lg-10 p-4">
+
+            <!-- PROFILE -->
+            <div class="glass-card p-3 neon d-flex align-items-center gap-3" style="background:#F0E2B6!important;">
+                <img class="profile-img" src="https://randomuser.me/api/portraits/men/32.jpg">
+                <div>
+                    <h5 class="fw-bold mb-1 readme">Vaibhav Srivastava</h5>
+                    <span class="small readme">I'm jr .Net Developer</span><br />
+                    <span class="small readme">Udaipur,Rajasthan.</span>
+                </div>
+            </div>
+
+
+            <!-- BLOG FEED STYLE CARDS -->
+            <div class="glass-card blog-card">
+                <img src="https://picsum.photos/seed/blog1/600/200" class="w-100 mb-2" />
+                <div class="card-body">
+                    <h5 class="fw-bold">How Users Share Feedback</h5>
+                    <p class="text-muted small">
+                        Users can submit reviews, suggestions, and platform improvement ideas.
+                    </p>
+                    <button class="btn btn-sm btn-primary"
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasDemo">
+                        Read More
+                    </button>
+                </div>
+            </div>
+
+            <div class="glass-card blog-card">
+                <img src="https://picsum.photos/seed/blog2/600/200" class="w-100 mb-2" />
+                <div class="card-body">
+                    <h5 class="fw-bold">Community Feedback Highlights</h5>
+                    <p class="text-muted small">
+                        Check out what users are saying about new features and updates.
+                    </p>
+                    <button class="btn btn-sm btn-primary"
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasDemo">
+                        Read More
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
+
+
+<!-- ================= OFFCANVAS ================= -->
+<div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="offcanvasDemo">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Demo Blog / Feedback</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body">
+        <p>
+            This demo post shows how users can submit feedback, reviews, and suggestions about your platform.
+        </p>
+
+        <p>
+            Reviews help improve features, usability, and design direction.
+        </p>
+
+        <p>Sample user reviews:</p>
+
+        <ul>
+            <li>⭐️⭐️⭐️⭐️⭐️ Excellent experience</li>
+            <li>⭐️⭐️⭐️⭐️ Great UI improvements</li>
+            <li>⭐️⭐️⭐ Needs more customization options</li>
+        </ul>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const body = document.body;
+    const themeButton = document.getElementById("toggleTheme");
+
+    // Default = Dark mode
+    body.classList.remove("light");
+
+    themeButton.addEventListener("click", () => {
+
+        body.classList.toggle("light");
+
+        if (body.classList.contains("light")) {
+            themeButton.innerText = "🌙 Dark Mode";
+        } else {
+            themeButton.innerText = "🟢 Light Mode";
+        }
+    });
+</script>

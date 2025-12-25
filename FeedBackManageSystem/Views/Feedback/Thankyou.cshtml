@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Thank You";
+    Layout = null; // remove this if you want to use _Layout.cshtml
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Thank You</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .thankyou-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .thankyou-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .thankyou-card img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .thankyou-card h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .thankyou-card p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .thankyou-card a {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .thankyou-card a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="thankyou-container">
+        <div class="thankyou-card">
+            <img src="~/images/thankyou.jpg" alt="Thank You" />
+
+            <h1>Thank You!</h1>
+            <p>
+                Your request has been submitted successfully.<br />
+                We will get back to you shortly.
+            </p>
+
+            <a href="@Url.Action("Index", "Home")">Go to Home</a>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
