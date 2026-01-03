@@ -1,4 +1,8 @@
 using FeedBackManageSystem.Data;
+using FeedBackManageSystem.Repositories.Interface;
+using FeedBackManageSystem.Repositories.Repository;
+using FeedBackManageSystem.Services.Interface;
+using FeedBackManageSystem.Services.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +12,11 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Find other services and repositories here
+builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+builder.Services.AddScoped<IFeedbackService, FeedbackService>();
+// Out services and repositories here
 
 var app = builder.Build();
 
