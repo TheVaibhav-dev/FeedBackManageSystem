@@ -13,10 +13,12 @@ namespace FeedBackManageSystem.Models
         public string MobileNumber { get; set; }
         [Required(ErrorMessage ="Enter your address")]
         public string Address { get; set; }
+        public bool IsActive { get; set; } = true;
         [Required]
         public string Gender { get; set; }
         public string? ImagePath { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
     }
 }

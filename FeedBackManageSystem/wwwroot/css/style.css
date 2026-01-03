@@ -1,0 +1,262 @@
+﻿:root {
+    --light-bg: #e9ecff;
+    --dark-bg: #F0EDF1;
+    --light-card: #ffffff;
+    --light-text: #000;
+    --dark-text: #e6e6f2;
+    --dark-card: #F0EDF1;
+}
+
+/* ===== GLOBAL BODY THEME ===== */
+
+body {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+    font-family: 'Segoe UI', sans-serif;
+    transition: .4s;
+}
+
+    body.light {
+        background: var(--light-bg);
+        color: var(--light-text);
+    }
+
+
+.table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table-dark {
+    background: #111829 !important;
+    color: #fff !important;
+}
+
+td img {
+    border: 2px solid #F0EDF1;
+}
+/* ===== TABLE ACTION PLUS MENU ===== */
+
+.action-menu {
+    position: relative;
+}
+
+.action-toggle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: black;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: .25s;
+}
+
+.menu-items {
+    position: absolute;
+    top: 50%;
+    left: 52px; 
+    transform: translateY(-50%);
+    display: none;
+    gap: 12px;
+    align-items: center;
+    z-index: 20; 
+}
+
+    .menu-items.show {
+        display: flex;
+    }
+
+    .menu-items a {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        cursor:pointer;
+        font-size: 15px;
+        text-decoration: none;
+    }
+
+    .menu-items .edit {
+        background: black;
+        color: white;
+    }
+
+    .menu-items .delete {
+        background: black;
+        color: white;
+    }
+
+/* -------End table Content----------*/
+
+.feedback-wrapper {
+    max-width: 650px;
+    margin: 40px auto;
+}
+
+.feedback-card {
+    background: rgba(0, 0, 0, .18);
+    color: var(--dark-text);
+    border-radius: 18px;
+    padding: 28px 32px;
+    box-shadow: 0 15px 35px rgba(0,0,0,.35);
+    transition: .35s;
+    position:relative;
+}
+
+body.light .feedback-card {
+    background: var(--light-card);
+    color: var(--light-text);
+    box-shadow: 0 15px 35px rgba(0,0,0,.18);
+}
+
+.feedback-card:hover {
+    transform: translateY(-3px);
+}
+
+.form-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #4e73df;
+    margin-bottom: 8px;
+}
+
+/* Inputs */
+.form-control {
+    border-radius: 10px;
+}
+
+/* Buttons */
+.btn-submit {
+    width: 40%;
+    padding: 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: .25s;
+    background: lightblue;
+    color: black;
+}
+
+.btn-back {
+    width: 40%;
+    padding: 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: .25s;
+    background: red;
+    color: white;
+}
+
+/* Theme toggle */
+.theme-toggle {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.theme-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.35);
+    background: transparent;
+    font-size: 18px;
+    cursor: pointer;
+    transition: .3s;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.light .theme-btn {
+    border-color: rgba(0,0,0,.45);
+    color: #000;
+    background: rgba(255,255,255,.7);
+}
+/* --------thank you page---------*/
+.thankyou-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.thankyou-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 450px;
+    width: 100%;
+}
+
+    .thankyou-card img {
+        width: 280px;
+        margin-bottom: 20px;
+    }
+
+    .thankyou-card h1 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    .thankyou-card p {
+        color: #555;
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    .thankyou-card a {
+        display: inline-block;
+        padding: 10px 25px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+        .thankyou-card a:hover {
+            background-color: #0056b3;
+        }
+
+        /*------------------------*/
+/*----------View Pages --------------*/
+.form-label {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #6c63ff;
+    }
+
+.feedback-card {
+    border-radius: 18px;
+    padding: 20px 24px;
+}
+
+.btn-submit {
+    font-weight: 600;
+}
+
+.btn-back {
+    font-weight: 500;
+    opacity: .9;
+}
+/*------------------------*/
