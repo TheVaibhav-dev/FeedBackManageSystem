@@ -1,0 +1,34 @@
+﻿/* ---------- GLASS CARD ---------- */
+.glass-card {
+    background: var(--dark-card);
+    border-radius: 18px;
+    border: 1px solid var(--dark-border);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 25px 45px rgba(0,0,0,.55);
+    transition: .3s;
+    margin-bottom: 1rem;
+}
+
+    .glass-card:hover {
+        transform: translateY(-3px);
+    }
+
+/* ---------- LIGHT MODE GLASS ---------- */
+body.light .glass-card {
+    background: var(--light-card);
+    border: 1px solid var(--light-border);
+}
+
+/* ---------- NEON EDGE ---------- */
+.neon {
+    border-color: var(--neon) !important;
+    box-shadow: 0 0 20px var(--neon);
+}
+
+/* ---------- PROFILE IMAGE ---------- */
+.profile-img {
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.45);
+}

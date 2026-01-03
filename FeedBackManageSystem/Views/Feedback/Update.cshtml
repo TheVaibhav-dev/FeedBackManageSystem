@@ -1,6 +1,6 @@
 ﻿@model FeedBackManageSystem.Models.FeedbackViewModel
 @{
-    ViewBag.Title = "Create Feedback";
+    ViewBag.Title = "Update Feedback";
 }
 
 <div class="feedback-wrapper">
@@ -8,11 +8,14 @@
 
         <button id="modeToggle" class="theme-btn">🌙</button>
 
-        <h3 class="form-title">Feedback Form ✍️</h3>
+        <h3 class="form-title">Update Feedback ✍️</h3>
 
-        @using (Html.BeginForm("Create", "Feedback", FormMethod.Post,
+        @using (Html.BeginForm("Update", "Feedback", FormMethod.Post,
                 new { enctype = "multipart/form-data" }))
         {
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.ImagePath)
+
             <div class="row">
 
                 <!-- Name -->
@@ -31,7 +34,7 @@
                 @Html.ValidationMessageFor(m => m.MobileNumber, "", new { @class = "text-danger" })
             </div>
 
-            <!-- Address - full width -->
+            <!-- Address -->
             <div class="col-12 mb-3">
                 @Html.LabelFor(m => m.Address, new { @class = "form-label fw-semibold" })
                 @Html.TextAreaFor(m => m.Address,
@@ -50,19 +53,30 @@
                                 )
             </div>
 
-            <!-- Image Upload -->
+            <!-- Existing Image Preview -->
             <div class="col-md-6 mb-3">
-                @Html.LabelFor(m => m.ImageFile, new { @class = "form-label fw-semibold" })
-                @Html.TextBoxFor(m => m.ImageFile,
-                                new { type = "file", @class = "form-control" })
+                @if (!string.IsNullOrEmpty(Model.ImagePath))
+                    {
+                        <label class="form-label fw-semibold">Current Image</label>
+                        <div>
+                            <img src="@Model.ImagePath" width="90" class="rounded" />
+                        </div>
+                    }
+                </div>
+
+                <!-- Upload New Image -->
+                <div class="col-md-6 mb-3">
+                    @Html.LabelFor(m => m.ImageFile, new { @class = "form-label fw-semibold" })
+                    @Html.TextBoxFor(m => m.ImageFile,
+                    new { type = "file", @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.ImageFile, "", new { @class = "text-danger" })
             </div>
 
         </div>
 
-        <!-- Buttons on same line -->
+        <!-- Buttons -->
         <div class="d-flex justify-content-between mt-2">
-            <button type="submit" class="btn btn-sm px-4 bg-body text-bg-light">Submit Feedback</button>
+            <button type="submit" class="btn btn-sm px-4 bg-body text-bg-light">Update Feedback</button>
             <a href="@Url.Action("Index", "Home")" class="btn btn-sm px-3" style="color:white;background:black;">Back</a>
         </div>
                 }
