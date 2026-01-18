@@ -94,12 +94,12 @@ td img {
 
 /* -------End table Content----------*/
 
-.feedback-wrapper {
+.wrapper {
     max-width: 650px;
     margin: 40px auto;
 }
 
-.feedback-card {
+.form-card {
     background: rgba(0, 0, 0, .18);
     color: var(--dark-text);
     border-radius: 18px;
@@ -109,13 +109,13 @@ td img {
     position:relative;
 }
 
-body.light .feedback-card {
+body.light .form-card {
     background: var(--light-card);
     color: var(--light-text);
     box-shadow: 0 15px 35px rgba(0,0,0,.18);
 }
 
-.feedback-card:hover {
+.form-card:hover {
     transform: translateY(-3px);
 }
 
@@ -260,3 +260,9 @@ body.light .theme-btn {
     opacity: .9;
 }
 /*------------------------*/
+footer {
+    background-color: #eee;
+    color: var(--text-main);
+    padding: 20px;
+    text-align: center;
+}

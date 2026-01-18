@@ -1,0 +1,229 @@
+﻿@model FeedBackManageSystem.Models.UserDashboardViewModel
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+    body {
+        background: #f4f6f9;
+        color: #000;
+        padding-top:90px;
+    }
+
+    /* NAVBAR */
+    .navbar-wrapper {
+        background: #ffc266;
+        padding: 14px 0;
+    }
+
+    .navbar-brand {
+        font-weight: 700;
+        font-size: 1.4rem;
+    }
+
+    .nav-action {
+        background: #000;
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: .3s;
+    }
+
+        .nav-action:hover {
+            opacity: .85;
+        }
+
+    /* SUMMARY CARDS */
+    .summary-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 22px;
+        box-shadow: 0 15px 35px rgba(0,0,0,.12);
+        transition: transform .3s ease;
+    }
+
+        .summary-card:hover {
+            transform: translateY(-6px);
+        }
+
+    .summary-icon {
+        font-size: 34px;
+        color: #ffc266;
+    }
+
+    /* GRAPH */
+    .graph-card {
+        background: #ffc266;
+        border-radius: 18px;
+        padding: 25px;
+        box-shadow: 0 20px 45px rgba(0,0,0,.18);
+        transition: transform .35s ease;
+    }
+
+        .graph-card:hover {
+            transform: scale(1.03);
+        }
+
+    /* TABLE */
+    .table-wrapper {
+        background: #fff;
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,.12);
+    }
+
+    table thead {
+        background: #ffc266;
+    }
+
+    table tbody tr {
+        cursor: pointer;
+        transition: background .25s ease, transform .25s ease;
+    }
+
+        table tbody tr:hover {
+            background: #fff3da;
+            transform: scale(1.01);
+        }
+
+    .rating-badge {
+        background: #000;
+        color: #fff;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: .85rem;
+    }
+</style>
+
+<!-- NAVBAR -->
+<div class="navbar-wrapper fixed-top">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <span class="navbar-brand">Daily Blogs Dashboard</span>
+
+            <a href="@Url.Action("AddBlogs", "UserBlog")" class="nav-action">
+                <i class="fa fa-plus"></i> Add Blog
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="container mt-4">
+
+    <h4 class="fw-bold mb-4">Welcome, @Model.UserName</h4>
+
+    <!-- SUMMARY -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="summary-card">
+                <i class="fa fa-blog summary-icon"></i>
+                <h6 class="mt-2">Total Blogs</h6>
+                <h3 class="fw-bold">@Model.TotalBlogs</h3>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="summary-card">
+                <i class="fa fa-star summary-icon"></i>
+                <h6 class="mt-2">Total Ratings</h6>
+                <h3 class="fw-bold">@Model.TotalRatings</h3>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="summary-card">
+                <i class="fa fa-user summary-icon"></i>
+                <h6 class="mt-2">Role</h6>
+                <h3 class="fw-bold">@Model.UserName</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- MONTHLY BAR GRAPH -->
+    <div class="graph-card mb-4">
+        <h6 class="fw-bold mb-3 text-dark">Monthly Blog Activity (Jan – Dec)</h6>
+        <canvas id="monthlyChart" height="140"></canvas>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrapper">
+        <h5 class="fw-bold mb-3">Your Blogs</h5>
+
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Subject</th>
+                    <th>Rating</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var blog in Model.Blogs)
+                {
+                    <tr>
+                        <td class="fw-semibold">@blog.Title</td>
+                        <td>@blog.Subject</td>
+                        <td>
+                            <span class="rating-badge">@blog.StarRating ⭐</span>
+                        </td>
+                        <td>@blog.DateCreated.ToShortDateString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    const monthlyData =
+        @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.MonthlyBlogs));
+
+    const ctx = document.getElementById('monthlyChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan','Feb','Mar','Apr','May','Jun',
+                     'Jul','Aug','Sep','Oct','Nov','Dec'],
+            datasets: [{
+                label: 'Blogs',
+                data: monthlyData,
+                backgroundColor: '#000',
+                borderRadius: 10,
+                barThickness: 26
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        stepSize: 10,
+                        color: '#000',
+                        font: { weight: '600' }
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#000',
+                        font: { weight: '600' }
+                    }
+                }
+            },
+            animation: {
+                duration: 1200,
+                easing: 'easeOutQuart'
+            }
+        }
+    });
+</script>

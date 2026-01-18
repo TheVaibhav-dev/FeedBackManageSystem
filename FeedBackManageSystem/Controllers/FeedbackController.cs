@@ -1,5 +1,7 @@
 ﻿using FeedBackManageSystem.Data;
+using FeedBackManageSystem.Enum;
 using FeedBackManageSystem.HelperClasses;
+using FeedBackManageSystem.HelperClasses.Filters;
 using FeedBackManageSystem.Models;
 using FeedBackManageSystem.Services.Interface;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +12,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace FeedBackManageSystem.Controllers
 {
+    [RoleAuthorize(UserType.Admin)]
     public class FeedbackController : Controller
     {
         private readonly IFeedbackService _service;
@@ -42,12 +45,14 @@ namespace FeedBackManageSystem.Controllers
         //    };
         //    return Json(output);
         //}
+        
         /// <summary>
         /// Created By : Vaibhav Srivastava
         /// Created Date :24-12-2025
         /// Description : To display the feedback submission form.
         /// </summary>
         /// <returns></returns>
+        [RoleAuthorize(UserType.Admin,UserType.Author)]
         [HttpGet]
         public IActionResult Create()
         {
@@ -64,18 +69,19 @@ namespace FeedBackManageSystem.Controllers
                 var isUpdate = _service.Create(feedback);
                 if (!isUpdate)
                 {
-                    TempData["UpdateError"] = "An error occurred while creating feedback. Please try again.";
-                    return RedirectToAction("Update", new { id = Encryption.EncyptNumber(feedback.Id) });
+                    TempData["Error"] = "An error occurred while creating feedback. Please try again.";
+                    return RedirectToAction("Index");
                 }
-                TempData["SuccessMessage"] = "Feedback uploaded Successfully";
+                TempData["Success"] = "Feedback uploaded Successfully";
                 return RedirectToAction("Thankyou");
             }
             catch (Exception ex)
             {
-                TempData["UpdateError"] = ex.Message;
-                return RedirectToAction("Update", new { id = Encryption.EncyptNumber(feedback.Id) });
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Index");
             }
         }
+        [RoleAuthorize(UserType.Admin, UserType.Author)]
         public IActionResult ThankYou()
         {
             return View();
@@ -110,16 +116,16 @@ namespace FeedBackManageSystem.Controllers
                 var isUpdate = _service.Update(model);
                 if (!isUpdate)
                 {
-                    TempData["UpdateError"] = "An error occurred while updating feedback. Please try again.";
-                    return RedirectToAction("Update", new { id =Encryption.EncyptNumber(model.Id)});
+                    TempData["Error"] = "An error occurred while updating feedback. Please try again.";
+                    return RedirectToAction("Index");
                 }
-                TempData["SuccessMessage"] = "Feedback updated Successfully";
+                TempData["Success"] = "Feedback updated Successfully";
                 return RedirectToAction("Thankyou");
             }
             catch (Exception ex)
             {
-                TempData["UpdateError"] = ex.Message;
-                return RedirectToAction("Update", new { id = Encryption.EncyptNumber(model.Id) });
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Index");
             }
         }
         /// <summary>
