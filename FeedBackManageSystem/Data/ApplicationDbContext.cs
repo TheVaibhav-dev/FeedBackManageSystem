@@ -11,5 +11,6 @@ namespace FeedBackManageSystem.Data
         }
         public DbSet<FeedbackViewModel> tblFeedback { get; set; }
         public DbSet<UserBlogViewModel> tblUserBlog { get; set; }
+        public DbSet<UserViewModel> tblUser { get; set; }
     }
 }
