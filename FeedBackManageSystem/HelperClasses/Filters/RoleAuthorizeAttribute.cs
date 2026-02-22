@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using FeedBackManageSystem.Enum;
 using Microsoft.AspNetCore.Mvc;
-using FeedBackManageSystem.Enum;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FeedBackManageSystem.HelperClasses.Filters
 {
@@ -13,14 +14,10 @@ namespace FeedBackManageSystem.HelperClasses.Filters
         }
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            if(ProjectSession.UserId == null || ProjectSession.UserType == null)
+            if (ProjectSession.UserId == null || ProjectSession.UserType == null)
             {
                 context.Result = new RedirectToActionResult("Login", "User", null);
                 return;
-            }
-            if(!_allowedRoles.Contains(ProjectSession.UserType.Value))
-            {
-                context.Result = new ForbidResult();
             }
         }
     }

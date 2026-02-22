@@ -47,6 +47,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.UseSession();
 app.UseAuthorization();
+app.UseAuthentication();
 app.MapStaticAssets();
 ProjectSession.Configure(app.Services.GetRequiredService<IHttpContextAccessor>());
 

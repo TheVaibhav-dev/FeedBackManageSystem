@@ -36,5 +36,9 @@ namespace FeedBackManageSystem.HelperClasses
                     Session.SetString("UserType", value.ToString());
             }
         }
+        public static void Clear()
+        {
+            _contextAccessor.HttpContext.Session.Clear();
+        }
     }
 }

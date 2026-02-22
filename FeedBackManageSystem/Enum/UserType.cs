@@ -1,9 +1,14 @@
-﻿namespace FeedBackManageSystem.Enum
+﻿using System.ComponentModel;
+
+namespace FeedBackManageSystem.Enum
 {
     public enum UserType
     {
-        Visitor = 1,   
-        Author = 2,   
+        [Description("Visitor")]
+        Visitor = 1,
+        [Description("Author")]
+        Author = 2,
+        [Description("Admin")]
         Admin = 3  
     }
 }
